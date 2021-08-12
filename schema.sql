@@ -53,6 +53,8 @@
 
 -- select * from questions where (asker_name='jbilas');
 -- select * from answers where (answerer_name='marcanthony');
+select * from answers_photos where (answer_id='5');
+
 
 --Building Query: GET /qa/questions
 -- select * from questions where (product_id='5');
