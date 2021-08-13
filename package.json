@@ -1,0 +1,24 @@
+{
+  "name": "SDC",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MongoSchema.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zbretz/Q-A.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zbretz/Q-A/issues"
+  },
+  "homepage": "https://github.com/zbretz/Q-A#readme"
+}

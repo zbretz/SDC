@@ -1,2 +1,6 @@
 .DS_Store
 CSV/
+helpful_links.md
+node_modules
+package-lock.json
+tidbits
