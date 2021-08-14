@@ -1,61 +1,62 @@
 -- to run this file:
 -- psql -U postgres postgres  -f schema.sql
 
-DROP DATABASE  IF EXISTS  qa;
 
-CREATE DATABASE qa;
+-- DROP DATABASE  IF EXISTS  qa;
 
-\c qa;
+-- CREATE DATABASE qa;
 
-create table questions (
-id int not null,
--- id int not null AUTOINCREMENT??
+-- \c qa;
+
+-- create table questions (
+-- id int not null,
+-- -- id int not null AUTOINCREMENT??
+-- -- id serial,
+-- product_id int not null,
+-- body text,
+-- date_written bigint,
+-- asker_name text,
+-- asker_email text,
+-- reported int,
+-- helpful int,
+-- primary key(id)
+-- );
+
+-- copy questions(id, product_id, body, date_written, asker_name, asker_email, reported, helpful)
+-- from '/users/zach/workspace/hackreactor/sdc/CSV/questions.csv'
+-- delimiter ','
+-- csv header;
+
+-- create table answers (
 -- id serial,
-product_id int not null,
-body text,
-date_written bigint,
-asker_name text,
-asker_email text,
-reported int,
-helpful int,
-primary key(id)
-);
+-- -- id int not null AUTOINCREMENT??
+-- -- id serial,
+-- question_id int not null,
+-- body text,
+-- date_written bigint,
+-- answerer_name text,
+-- answerer_email text,
+-- reported int,
+-- helpful int,
+-- primary key(id)
+-- );
 
-copy questions(id, product_id, body, date_written, asker_name, asker_email, reported, helpful)
-from '/users/zach/workspace/hackreactor/sdc/CSV/questions.csv'
-delimiter ','
-csv header;
+-- copy answers
+-- from '/users/zach/workspace/hackreactor/sdc/CSV/answers.csv'
+-- delimiter ','
+-- csv header;
 
-create table answers (
-id serial,
--- id int not null AUTOINCREMENT??
+-- create table answers_photos (
 -- id serial,
-question_id int not null,
-body text,
-date_written bigint,
-answerer_name text,
-answerer_email text,
-reported int,
-helpful int,
-primary key(id)
-);
+-- answer_id int,
+-- url text,
+-- primary key(id)
+-- );
 
-copy answers
-from '/users/zach/workspace/hackreactor/sdc/CSV/answers.csv'
-delimiter ','
-csv header;
-
-create table answers_photos (
-id serial,
-answer_id int,
-url text,
-primary key(id)
-);
-
-copy answers_photos
-from '/users/zach/workspace/hackreactor/sdc/CSV/answers_photos.csv'
-delimiter ','
-csv header;
+-- copy answers_photos
+-- from '/users/zach/workspace/hackreactor/sdc/CSV/answers_photos.csv'
+-- delimiter ','
+-- csv header;
 
 -- select * from questions where (asker_name='jbilas');
 -- select * from answers where (answerer_name='marcanthony');
