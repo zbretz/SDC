@@ -25,9 +25,7 @@ app.get('/api/qa/questions', (req, res) => {
 //answer list
 app.get('/api/qa/questions/:question_id/answers', (req, res) => {
   const question_id = req.params['question_id']
-
-  const product_id = req.query['product_id']
-  db.query('SELECT * FROM answers LIMIT 1', (err, result) => {
+  db.query('SELECT * FROM answers WHERE (question_id=$1)',[question_id], (err, result) => {
     if (err) {
       return next(err)
     }
