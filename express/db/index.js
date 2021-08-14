@@ -11,10 +11,13 @@ const pool = new Pool({
   port: 5432,
 })
 
-pool.query('SELECT * FROM answers LIMIT 1', (err, res) => {
-  console.log(err, res)
-  pool.end()
-})
+module.exports = {
+  query: (text, params, callback) => {
+    return pool.query(text, params, callback)
+  },
+}
+
+
 
 // pool.query('SELECT * FROM pg_catalog.pg_tables ', (err, res) => {
 //   console.log(err, res)
