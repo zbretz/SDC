@@ -11,7 +11,7 @@ const pool = new Pool({
   port: 5432,
 })
 
-pool.query('SELECT * FROM questions LIMIT 1', (err, res) => {
+pool.query('SELECT * FROM answers LIMIT 1', (err, res) => {
   console.log(err, res)
   pool.end()
 })
