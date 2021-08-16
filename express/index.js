@@ -10,8 +10,15 @@ app.get('/', (req, res) => {
 // Questions list
 app.get('/api/qa/questions', (req, res) => {
   const product_id = req.query['product_id']
-  db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
-    .then(result => res.send(result.rows[0]))
+  const prom1 = db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
+  // db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
+
+  //  .then(result => res.send(result.rows[0]))
+    // .catch(e => console.error(e.stack))
+    // .then
+
+    Promise.all([prom1])
+    .then(result => res.send(result[0].rows[0]))
     .catch(e => console.error(e.stack))
 })
 

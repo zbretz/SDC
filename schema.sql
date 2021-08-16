@@ -87,20 +87,20 @@
 -- -- 425, 426, 427, 428
 
 ---------these two queries return all questions and their answers for a given product_id:
--- select q.id, q.body, a.question_id, a.body  from answers a inner join questions q on a.question_id = q.id where product_id='66';
+-- select q.id, q.body, a.question_id, a.id,  a.body  from answers a inner join questions q on a.question_id = q.id where product_id='66';
 
 -- select id from answers where question_id in (select id from questions where product_id='66');
 ---------
 
 -- trying now to inner join on photos as well
--- select q.id, q.body, a.question_id, a.body, ap.url
--- from answers a
--- inner join questions q
--- on a.question_id = q.id
--- left join answers_photos ap
--- on a.id = ap.answer_id
--- where product_id='66'
--- ;
+select q.id, a.question_id, a.id, ap.url
+from answers a
+inner join questions q
+on a.question_id = q.id
+left join answers_photos ap
+on a.id = ap.answer_id
+where product_id='66'
+;
 
 -- ---------
 -- select q.id, a.question_id, ap.url
