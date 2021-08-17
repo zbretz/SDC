@@ -27,13 +27,17 @@ app.get('/api/qa/questions', (req, res) => {
 // Answer list
 app.get('/api/qa/questions/:question_id/answers', (req, res) => {
   const question_id = req.params['question_id']
-  db.query('SELECT * FROM answers WHERE (question_id=$1)',[question_id], (err, result) => {
+  db.query('select json_agg(results) from(select ans.id, ans.body,(select json_agg(pho) from ( select * from answers_photos where answer_id = ans.id ) pho )as photos  from (  select * from answers where question_id = $1) as ans) results;',[question_id], (err, result) => {
     if (err) {
       return next(err)
     }
-    res.send(result.rows[0])
+    res.send(result.rows)
     // pool.end()
   })
+
+
+
+
 
 })
 
