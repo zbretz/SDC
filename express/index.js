@@ -11,36 +11,18 @@ app.get('/', (req, res) => {
 app.get('/api/qa/questions', (req, res) => {
   const product_id = req.query['product_id']
   const prom1 = db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
-  // db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
 
+  const prom2 = db.query('select row_to_json(q) from ( select questions.id, questions.body, (select json_agg(answers) from( select ans.id, (select json_agg(pho) from (select * from answers_photos where answer_id = ans.id) pho )as photos from ( select * from answers where question_id = questions.id) as ans) answers) as answers from (select * from questions where product_id = $1) as questions) q;',[product_id])
+
+  // db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
   //  .then(result => res.send(result.rows[0]))
     // .catch(e => console.error(e.stack))
     // .then
 
-    Promise.all([prom1])
-    .then(result => res.send(result[0].rows[0]))
+    Promise.all([prom2])
+    .then(result => res.send(result[0].rows))
     .catch(e => console.error(e.stack))
 })
-
-// "results": [{
-//   "question_id": 37,
-//   "question_body": "Why is this product cheaper here than other sites?",
-//   "question_date": "2018-10-18T00:00:00.000Z",
-//   "asker_name": "williamsmith",
-//   "question_helpfulness": 4,
-//   "reported": false,
-//   "answers": {
-//     68: {
-//       "id": 68,
-//       "body": "We are selling it here without any markup from the middleman!",
-//       "date": "2018-08-18T00:00:00.000Z",
-//       "answerer_name": "Seller",
-//       "helpfulness": 4,
-//       "photos": []
-//       // ...
-//     }
-//   }
-// },
 
 // Answer list
 app.get('/api/qa/questions/:question_id/answers', (req, res) => {
