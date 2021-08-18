@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const port = 2000;
 const db = require('./db')
+var morgan = require('morgan')
+
+app.use(morgan('tiny'));
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -12,22 +15,22 @@ app.get('/api/qa/questions', (req, res) => {
   const product_id = req.query['product_id']
   // const prom1 = db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
 
-  // const prom2 = db.query('select row_to_json(q) from ( select questions.id, questions.body, (select json_agg(answers) from( select ans.id, (select json_agg(pho) from (select * from answers_photos where answer_id = ans.id) pho )as photos from ( select * from answers where question_id = questions.id) as ans) answers) as answers from (select * from questions where product_id = $1) as questions) q;',[product_id])
+  const prom2 = db.query('select row_to_json(q) from ( select questions.id, questions.body, (select json_agg(answers) from( select ans.id, (select json_agg(pho) from (select * from answers_photos where answer_id = ans.id) pho )as photos from ( select * from answers where question_id = questions.id) as ans) answers) as answers from (select * from questions where product_id = $1) as questions) q;',[product_id])
 
   // const prom3 = db.query('select * from questions limit 1;')
 
-  db.query('select * from questions limit 1;')
-   .then(result => res.send(result.rows[0]))
-   .catch(e => console.error(e.stack))
+  // db.query('select * from questions limit 1;')
+  //  .then(result => res.send(result.rows[0]))
+  //  .catch(e => console.error(e.stack))
 
   // db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
   //  .then(result => res.send(result.rows[0]))
     // .catch(e => console.error(e.stack))
     // .then
 
-    // Promise.all([prom3])
-    // .then(result => res.send(result[0].rows))
-    // .catch(e => console.error(e.stack))
+    Promise.all([prom2])
+    .then(result => res.send(result[0].rows))
+    .catch(e => console.error(e.stack))
 })
 
 // Answer list
