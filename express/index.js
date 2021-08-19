@@ -50,6 +50,20 @@ app.get('/api/qa/questions/:question_id/answers', (req, res) => {
 
 })
 
+app.get('/api/qa/testquestions', (req, res) => {
+  db.query('select * from questions where product_id = 76066;', (err, result) => {
+    if (err) {
+      return err
+    }
+    res.send(result.rows)
+    // pool.end()
+  })
+
+
+
+
+})
+
 
 // Add a Question
 app.post('/api/qa/questions', (req, res) => {
