@@ -3,11 +3,25 @@ const app = express();
 const port = 2000;
 const db = require('./db')
 var morgan = require('morgan')
+const path = require('path')
+
 
 app.use(morgan('tiny'));
 
+// provides access to loader endoint/html file
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  // res.send('Hello World!')
+
+  db.query('select * from questions where product_id = 76066;', (err, result) => {
+    if (err) {
+      return err
+    }
+    res.send(result.rows)
+    // pool.end()
+  })
+
 })
 
 // Questions list
@@ -23,7 +37,7 @@ app.get('/api/qa/questions', (req, res) => {
   //  .then(result => res.send(result.rows[0]))
   //  .catch(e => console.error(e.stack))
 
-  // db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100',[product_id])
+  // db.query('SELECT * FROM questions WHERE product_id = $1 LIMIT 100;',[product_id])
   //  .then(result => res.send(result.rows[0]))
     // .catch(e => console.error(e.stack))
     // .then

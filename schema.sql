@@ -2,30 +2,31 @@
 -- psql -U postgres postgres  -f schema.sql
 
 
--- DROP DATABASE  IF EXISTS  qa;
+DROP DATABASE  IF EXISTS  qa;
 
--- CREATE DATABASE qa;
+CREATE DATABASE qa;
 
--- \c qa;
+\c qa;
 
--- create table questions (
--- id int not null,
--- -- id int not null AUTOINCREMENT??
--- -- id serial,
--- product_id int not null,
--- body text,
--- date_written bigint,
--- asker_name text,
--- asker_email text,
--- reported int,
--- helpful int,
--- primary key(id)
--- );
+create table questions (
+id int not null,
+-- id int not null AUTOINCREMENT??
+-- id serial,
+product_id int not null,
+body text,
+date_written bigint,
+asker_name text,
+asker_email text,
+reported int,
+helpful int,
+primary key(id)
+);
 
 -- copy questions(id, product_id, body, date_written, asker_name, asker_email, reported, helpful)
 -- from '/users/zach/workspace/hackreactor/sdc/CSV/questions.csv'
 -- delimiter ','
 -- csv header;
+
 
 -- create table answers (
 -- id serial,
@@ -43,6 +44,12 @@
 
 -- copy answers
 -- from '/users/zach/workspace/hackreactor/sdc/CSV/answers.csv'
+-- delimiter ','
+-- csv header;
+
+-- -- on ubuntu -- --
+-- \copy answers
+-- from 'csv/answers.csv'
 -- delimiter ','
 -- csv header;
 
@@ -77,7 +84,7 @@
 
 
 -- select id from questions  where product_id='66';
--- --result: 214, 214, 216
+-- --result: 214, 215, 216
 
 -- select id from answers where (question_id='214')
 -- -- result: 421, 422
@@ -93,7 +100,7 @@
 ---------
 
 -- trying now to inner join on photos as well
-select q.id, a.question_id, a.id, ap.url
+select q.id, a.question_id, a.id, ap.id
 from answers a
 inner join questions q
 on a.question_id = q.id

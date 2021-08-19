@@ -104,7 +104,7 @@ select * from answers where question_id = '216')
 
  ----even better-er?
 
-select row_to_json(results)
+select json_agg(results)
 from(
 
 select ans.id, ans.body,
@@ -160,7 +160,7 @@ from (
 
 select row_to_json(q)
 from (
-  select questions_id, body,
+  select questions.id, questions.body,
 
   (select json_agg(answers)
 from(
@@ -174,7 +174,7 @@ select * from answers_photos where answer_id = ans.id
 
 
 from (
-select * from answers where question_id = '216')
+select * from answers where question_id = questions.id)
  as ans) answers) as answers
 
 
