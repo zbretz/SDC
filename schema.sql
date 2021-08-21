@@ -60,10 +60,10 @@ primary key(id)
 -- primary key(id)
 -- );
 
--- copy answers_photos
--- from '/users/zach/workspace/hackreactor/sdc/CSV/answers_photos.csv'
--- delimiter ','
--- csv header;
+\copy answers_photos
+from 'csv/answers_photos.csv'
+delimiter ','
+csv header;
 
 -- select * from questions where (asker_name='jbilas');
 -- select * from answers where (answerer_name='marcanthony');
@@ -100,7 +100,7 @@ primary key(id)
 ---------
 
 -- trying now to inner join on photos as well
-select q.id, a.question_id, a.id, ap.id
+select q.body, a.question_id, a.id, ap.id
 from answers a
 inner join questions q
 on a.question_id = q.id

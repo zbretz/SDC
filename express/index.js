@@ -11,10 +11,48 @@ app.use(morgan('tiny'));
 // provides access to loader endoint/html file
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/', (req, res) => {
+
+app.get('', (req, res) => {
+  db.query(
+     `select * from answers limit 9;`,
+    (err, result) => {
+    if (err) { return err }
+    res.send(result.rows)
+  })
+})
+
+app.get('/test/question', (req, res) => {
+  const product_id = req.query['product_id']
+  //testing
+  db.query(
+     `select q.body, a.question_id, a.id, ap.id
+      from answers a
+      inner join questions q
+      on a.question_id = q.id
+      left join answers_photos ap
+      on a.id = ap.answer_id
+      where product_id=$1;`, [product_id],
+    (err, result) => {
+    if (err) {
+      return err
+    }
+    res.send(result.rows)
+    // pool.end()
+  })
+})
+
+app.get('/test/answer', (req, res) => {
   // res.send('Hello World!')
 
-  db.query('select * from questions where product_id = 76066;', (err, result) => {
+  db.query(
+     `select q.body, a.question_id, a.id, ap.id
+      from answers a
+      inner join questions q
+      on a.question_id = q.id
+      left join answers_photos ap
+      on a.id = ap.answer_id
+      where product_id='66';`,
+    (err, result) => {
     if (err) {
       return err
     }
