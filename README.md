@@ -2,7 +2,7 @@
   Supporting Atelier e-commerce front-end.
   
   [Supported Endpoints](#supported-endpoints)  
-  [Example JSON](#example-response)  
+  [Sample JSON](#sample-json)  
   [System Architecture](#system-architecture)  
  
 ## Supported Endpoints
